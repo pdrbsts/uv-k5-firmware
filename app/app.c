@@ -463,7 +463,7 @@ Skip:
 static void NOAA_NextChannel(void)
 {
 	gNoaaChannel++;
-	if (gNoaaChannel > 9) {
+	if (gNoaaChannel > 15) {
 		gNoaaChannel = 0;
 	}
 }
