@@ -19,7 +19,7 @@
 #include "settings.h"
 
 const uint32_t LowerLimitFrequencyBandTable[7] = {
-	 5000000,
+	 1800000,
 	10800000,
 	13600000,
 	17400000,
@@ -39,27 +39,33 @@ const uint32_t MiddleFrequencyBandTable[7] = {
 };
 
 const uint32_t UpperLimitFrequencyBandTable[7] = {
-	 7600000,
+	10799990,
 	13599990,
 	17399990,
 	34999990,
 	39999990,
 	46999990,
-	60000000,
+	130000000,
 };
 
 #if defined(ENABLE_NOAA)
-const uint32_t NoaaFrequencyTable[10] = {
-	16255000,
-	16240000,
-	16247500,
-	16242500,
-	16245000,
-	16250000,
-	16252500,
-	16152500,
-	16177500,
-	16327500,
+const uint32_t NoaaFrequencyTable[16] = {
+		44600625,
+		44601875,
+		44603125,
+		44604375,
+		44605625,
+		44606875,
+		44608125,
+		44609375,
+		44610625,
+		44611875,
+		44613125,
+		44614375,
+		44615625,
+		44616875,
+		44618125,
+		44619375
 };
 #endif
 
@@ -75,7 +81,7 @@ const uint16_t StepFrequencyTable[7] = {
 
 FREQUENCY_Band_t FREQUENCY_GetBand(uint32_t Frequency)
 {
-	if (Frequency >=  5000000 && Frequency <=  7600000) {
+	if (Frequency >=  1800000 && Frequency <= 10799990) {
 		return BAND1_50MHz;
 	}
 	if (Frequency >= 10800000 && Frequency <= 13599990) {
@@ -93,7 +99,7 @@ FREQUENCY_Band_t FREQUENCY_GetBand(uint32_t Frequency)
 	if (Frequency >= 40000000 && Frequency <= 46999990) {
 		return BAND6_400MHz;
 	}
-	if (Frequency >= 47000000 && Frequency <= 60000000) {
+	if (Frequency >= 47000000 && Frequency <= 130000000) {
 		return BAND7_470MHz;
 	}
 
@@ -121,7 +127,20 @@ uint32_t FREQUENCY_FloorToStep(uint32_t Upper, uint32_t Step, uint32_t Lower)
 {
 	uint32_t Index;
 
+	if (Step == 833) {
+		const uint32_t Delta = Upper - Lower;
+		uint32_t Base = (Delta / 2500) * 2500;
+		const uint32_t Index = ((Delta - Base) % 2500) / 833;
+
+		if (Index == 2) {
+			Base++;
+		}
+
+		return Lower + Base + (Index * 833);
+	}
+
 	Index = (Upper - Lower) / Step;
+
 	return Lower + (Step * Index);
 }
 
@@ -130,7 +149,7 @@ int FREQUENCY_Check(VFO_Info_t *pInfo)
 	uint32_t Frequency;
 
 	if (pInfo->CHANNEL_SAVE >= NOAA_CHANNEL_FIRST) {
-		return -1;
+		return 0;
 	}
 	Frequency = pInfo->pTX->Frequency;
 	switch (gSetting_F_LOCK) {
@@ -202,6 +221,5 @@ int FREQUENCY_Check(VFO_Info_t *pInfo)
 		break;
 	}
 
-	return -1;
+	return 0;
 }
-
