@@ -555,10 +555,10 @@ void BOARD_EEPROM_Init(void)
 	} FM;
 
 	EEPROM_ReadBuffer(0x0E88, &FM, 8);
-	gEeprom.FM_LowerLimit = 760;
+	gEeprom.FM_LowerLimit = 875;
 	gEeprom.FM_UpperLimit = 1080;
 	if (FM.SelectedFrequency < gEeprom.FM_LowerLimit || FM.SelectedFrequency > gEeprom.FM_UpperLimit) {
-		gEeprom.FM_SelectedFrequency = 760;
+		gEeprom.FM_SelectedFrequency = 875;
 	} else {
 		gEeprom.FM_SelectedFrequency = FM.SelectedFrequency;
 	}
