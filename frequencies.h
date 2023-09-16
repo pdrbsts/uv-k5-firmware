@@ -36,7 +36,7 @@ extern const uint32_t LowerLimitFrequencyBandTable[7];
 extern const uint32_t MiddleFrequencyBandTable[7];
 extern const uint32_t UpperLimitFrequencyBandTable[7];
 #if defined(ENABLE_NOAA)
-extern const uint32_t NoaaFrequencyTable[10];
+extern const uint32_t NoaaFrequencyTable[16];
 #endif
 extern const uint16_t StepFrequencyTable[7];
 
@@ -46,4 +46,3 @@ uint32_t FREQUENCY_FloorToStep(uint32_t Upper, uint32_t Step, uint32_t Lower);
 int FREQUENCY_Check(VFO_Info_t *pInfo);
 
 #endif
-
