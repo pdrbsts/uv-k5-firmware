@@ -40,7 +40,7 @@ const uint32_t MiddleFrequencyBandTable[7] = {
 
 const uint32_t UpperLimitFrequencyBandTable[7] = {
 	10799990,
-	13599990,
+	13699990,
 	17399990,
 	34999990,
 	39999990,
@@ -84,10 +84,10 @@ FREQUENCY_Band_t FREQUENCY_GetBand(uint32_t Frequency)
 	if (Frequency >=  1800000 && Frequency <= 10799990) {
 		return BAND1_50MHz;
 	}
-	if (Frequency >= 10800000 && Frequency <= 13599990) {
+	if (Frequency >= 10800000 && Frequency <= 13699990) {
 		return BAND2_108MHz;
 	}
-	if (Frequency >= 13600000 && Frequency <= 17399990) {
+	if (Frequency >= 13700000 && Frequency <= 17399990) {
 		return BAND3_136MHz;
 	}
 	if (Frequency >= 17400000 && Frequency <= 34999990) {
@@ -178,7 +178,7 @@ int FREQUENCY_Check(VFO_Info_t *pInfo)
 		break;
 
 	case F_LOCK_430:
-		if (Frequency >= 13600000 && Frequency <= 17399990) {
+		if (Frequency >= 13700000 && Frequency <= 17399990) {
 			return 0;
 		}
 		if (Frequency >= 40000000 && Frequency <= 42999990) {
@@ -187,7 +187,7 @@ int FREQUENCY_Check(VFO_Info_t *pInfo)
 		break;
 
 	case F_LOCK_438:
-		if (Frequency >= 13600000 && Frequency <= 17399990) {
+		if (Frequency >= 13700000 && Frequency <= 17399990) {
 			return 0;
 		}
 		if (Frequency >= 40000000 && Frequency <= 43799990) {
@@ -196,7 +196,7 @@ int FREQUENCY_Check(VFO_Info_t *pInfo)
 		break;
 
 	default:
-		if (Frequency >= 13600000 && Frequency <= 17399990) {
+		if (Frequency >= 13700000 && Frequency <= 17399990) {
 			return 0;
 		}
 		if (Frequency >= 35000000 && Frequency <= 39999990) {
@@ -213,7 +213,7 @@ int FREQUENCY_Check(VFO_Info_t *pInfo)
 			}
 		}
 
-		if (Frequency >= 47000000 && Frequency <= 60000000) {
+		if (Frequency >= 47000000 && Frequency <= 130000000) {
 			if (gSetting_500TX) {
 				return 0;
 			}
